@@ -1,0 +1,153 @@
+prune_ratios:
+   module.conv1.conv.weight:  #[64, 3, 3, 7, 7]
+     0.2
+#   module.conv2.conv.weight:  #[64, 64, 1, 1, 1]
+#     0.
+   module.conv3.conv.weight:  #[192, 64, 1, 3, 3]
+     0.8
+   module.conv3.conv_t.weight:  #[192, 192, 3, 1, 1]
+     0.8
+#   module.inception3a.branch1.conv.weight:  #[64, 192, 1, 1, 1]
+#     0.
+#   module.inception3a.branch2.0.conv.weight:  #[96, 192, 1, 1, 1]
+#     0.
+   module.inception3a.branch2.1.conv.weight:  #[128, 96, 1, 3, 3]
+     0.5
+   module.inception3a.branch2.1.conv_t.weight:  #[128, 128, 3, 1, 1]
+     0.5
+#   module.inception3a.branch3.0.conv.weight:  #[16, 192, 1, 1, 1]
+#     0.
+#   module.inception3a.branch3.1.conv.weight:  #[32, 16, 1, 3, 3]
+#     0.
+#   module.inception3a.branch3.1.conv_t.weight:  #[32, 32, 3, 1, 1]
+#     0.
+#   module.inception3a.branch4.1.conv.weight:  #[32, 192, 1, 1, 1]
+#     0.
+#   module.inception3b.branch1.conv.weight:  #[128, 256, 1, 1, 1]
+#     0.
+#   module.inception3b.branch2.0.conv.weight:  #[128, 256, 1, 1, 1]
+#     0.
+   module.inception3b.branch2.1.conv.weight:  #[192, 128, 1, 3, 3]
+     0.7
+   module.inception3b.branch2.1.conv_t.weight:  #[192, 192, 3, 1, 1]
+     0.7
+#   module.inception3b.branch3.0.conv.weight:  #[32, 256, 1, 1, 1]
+#     0.
+#   module.inception3b.branch3.1.conv.weight:  #[96, 32, 1, 3, 3]
+#     0.
+#   module.inception3b.branch3.1.conv_t.weight:  #[96, 96, 3, 1, 1]
+#     0.
+#   module.inception3b.branch4.1.conv.weight:  #[64, 256, 1, 1, 1]
+#     0.
+#   module.inception4a.branch1.conv.weight:  #[192, 480, 1, 1, 1]
+#     0.
+#   module.inception4a.branch2.0.conv.weight:  #[96, 480, 1, 1, 1]
+#     0.
+#   module.inception4a.branch2.1.conv.weight:  #[208, 96, 1, 3, 3]
+#     0.
+#   module.inception4a.branch2.1.conv_t.weight:  #[208, 208, 3, 1, 1]
+#     0.
+#   module.inception4a.branch3.0.conv.weight:  #[16, 480, 1, 1, 1]
+#     0.
+#   module.inception4a.branch3.1.conv.weight:  #[48, 16, 1, 3, 3]
+#     0.
+#   module.inception4a.branch3.1.conv_t.weight:  #[48, 48, 3, 1, 1]
+#     0.
+#   module.inception4a.branch4.1.conv.weight:  #[64, 480, 1, 1, 1]
+#     0.
+#   module.inception4b.branch1.conv.weight:  #[160, 512, 1, 1, 1]
+#     0.
+#   module.inception4b.branch2.0.conv.weight:  #[112, 512, 1, 1, 1]
+#     0.
+#   module.inception4b.branch2.1.conv.weight:  #[224, 112, 1, 3, 3]
+#     0.
+#   module.inception4b.branch2.1.conv_t.weight:  #[224, 224, 3, 1, 1]
+#     0.
+#   module.inception4b.branch3.0.conv.weight:  #[24, 512, 1, 1, 1]
+#     0.
+#   module.inception4b.branch3.1.conv.weight:  #[64, 24, 1, 3, 3]
+#     0.
+#   module.inception4b.branch3.1.conv_t.weight:  #[64, 64, 3, 1, 1]
+#     0.
+#   module.inception4b.branch4.1.conv.weight:  #[64, 512, 1, 1, 1]
+#     0.
+#   module.inception4c.branch1.conv.weight:  #[128, 512, 1, 1, 1]
+#     0.
+#   module.inception4c.branch2.0.conv.weight:  #[128, 512, 1, 1, 1]
+#     0.
+   module.inception4c.branch2.1.conv.weight:  #[256, 128, 1, 3, 3]
+     0.5
+   module.inception4c.branch2.1.conv_t.weight:  #[256, 256, 3, 1, 1]
+     0.5
+#   module.inception4c.branch3.0.conv.weight:  #[24, 512, 1, 1, 1]
+#     0.
+#   module.inception4c.branch3.1.conv.weight:  #[64, 24, 1, 3, 3]
+#     0.
+#   module.inception4c.branch3.1.conv_t.weight:  #[64, 64, 3, 1, 1]
+#     0.
+#   module.inception4c.branch4.1.conv.weight:  #[64, 512, 1, 1, 1]
+#     0.
+#   module.inception4d.branch1.conv.weight:  #[112, 512, 1, 1, 1]
+#     0.
+#   module.inception4d.branch2.0.conv.weight:  #[144, 512, 1, 1, 1]
+#     0.
+   module.inception4d.branch2.1.conv.weight:  #[288, 144, 1, 3, 3]
+     0.5
+   module.inception4d.branch2.1.conv_t.weight:  #[288, 288, 3, 1, 1]
+     0.5
+#   module.inception4d.branch3.0.conv.weight:  #[32, 512, 1, 1, 1]
+#     0.
+#   module.inception4d.branch3.1.conv.weight:  #[64, 32, 1, 3, 3]
+#     0.
+#   module.inception4d.branch3.1.conv_t.weight:  #[64, 64, 3, 1, 1]
+#     0.
+#   module.inception4d.branch4.1.conv.weight:  #[64, 512, 1, 1, 1]
+#     0.
+#   module.inception4e.branch1.conv.weight:  #[256, 528, 1, 1, 1]
+#     0.
+#   module.inception4e.branch2.0.conv.weight:  #[160, 528, 1, 1, 1]
+#     0.
+   module.inception4e.branch2.1.conv.weight:  #[320, 160, 1, 3, 3]
+     0.7
+   module.inception4e.branch2.1.conv_t.weight:  #[320, 320, 3, 1, 1]
+     0.7
+#   module.inception4e.branch3.0.conv.weight:  #[32, 528, 1, 1, 1]
+#     0.
+#   module.inception4e.branch3.1.conv.weight:  #[128, 32, 1, 3, 3]
+#     0.
+#   module.inception4e.branch3.1.conv_t.weight:  #[128, 128, 3, 1, 1]
+#     0.
+#   module.inception4e.branch4.1.conv.weight:  #[128, 528, 1, 1, 1]
+#     0.
+#   module.inception5a.branch1.conv.weight:  #[256, 832, 1, 1, 1]
+#     0.
+#   module.inception5a.branch2.0.conv.weight:  #[160, 832, 1, 1, 1]
+#     0.
+#   module.inception5a.branch2.1.conv.weight:  #[320, 160, 1, 3, 3]
+#     0.
+#   module.inception5a.branch2.1.conv_t.weight:  #[320, 320, 3, 1, 1]
+#     0.
+#   module.inception5a.branch3.0.conv.weight:  #[32, 832, 1, 1, 1]
+#     0.
+#   module.inception5a.branch3.1.conv.weight:  #[128, 32, 1, 3, 3]
+#     0.
+#   module.inception5a.branch3.1.conv_t.weight:  #[128, 128, 3, 1, 1]
+#     0.
+#   module.inception5a.branch4.1.conv.weight:  #[128, 832, 1, 1, 1]
+#     0.
+#   module.inception5b.branch1.conv.weight:  #[384, 832, 1, 1, 1]
+#     0.
+#   module.inception5b.branch2.0.conv.weight:  #[192, 832, 1, 1, 1]
+#     0.
+#   module.inception5b.branch2.1.conv.weight:  #[384, 192, 1, 3, 3]
+#     0.
+#   module.inception5b.branch2.1.conv_t.weight:  #[384, 384, 3, 1, 1]
+#     0.
+#   module.inception5b.branch3.0.conv.weight:  #[48, 832, 1, 1, 1]
+#     0.
+#   module.inception5b.branch3.1.conv.weight:  #[128, 48, 1, 3, 3]
+#     0.
+#   module.inception5b.branch3.1.conv_t.weight:  #[128, 128, 3, 1, 1]
+#     0.
+#   module.inception5b.branch4.1.conv.weight:  #[128, 832, 1, 1, 1]
+#     0.

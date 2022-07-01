@@ -1,0 +1,77 @@
+{
+  "origin": {
+    "train_data_path": null,
+    "train_label_path": null,
+    "eval_data_path": null,
+    "eval_label_path": null,
+    "common_train_epochs": 1,
+    "arch": "r2+1d",
+    "dataset": "ucf101",
+    "batch_size": 32,
+    "lr": 0.005,
+    "optim": "sgd",
+    "lr_scheduler": "cosine",
+    "lr_milestones": [
+      20,
+      30
+    ],
+    "resume": false,
+    "transfer": false,
+    "smooth_eps": 0.0,
+    "pretrained": false,
+    "log_interval": 100,
+    "test": false,
+    "test_path": null,
+    "gpu": "2",
+    "logdir": "./checkpoint/",
+    "datadir": "/home/tmp00047/test/video-classification-s2-1d/dataset/ucf101_frame"
+  },
+  "general": {
+    "work_place": null
+  },
+  "task": {
+    "pretrained_model_path": "/home/tmp00047/test/video-classification-s2-1d/checkpoint/r2+1d_ucf101_dense_top1-94.0_unpruned.pt",
+    "max_searching": 3
+  },
+  "prune": {
+    "sp_retrain": false,
+    "sp_admm": false,
+    "sp_config_file": null,
+    "sp_admm_update_epoch": 5,
+    "sp_admm_rho": 0.001,
+    "sparsity_type": "block_punched",
+    "sp_admm_lr": 0.01,
+    "sp_global_weight_sparsity": false,
+    "sp_admm_block": "(8,4)",
+    "sp_prune_ratios": 0,
+    "sp_prune_threshold": -1.0
+  },
+  "quantization": {
+    "qt_aimet": false,
+    "qat": true,
+    "fold_layers": true,
+    "cross_layer_equalization": false,
+    "bias_correction": true,
+    "rounding_mode": "nearest",
+    "num_quant_samples": 1000,
+    "num_bias_correct_samples": 1000,
+    "weight_bw": 8,
+    "act_bw": 8,
+    "quant_scheme": "tf_enhanced",
+    "layers_to_ignore": [],
+    "auto_add_bias": true,
+    "perform_only_empirical_bias_corr": true
+  },
+  "user_requirements": {
+    "accuracy": 80,
+    "latency": null,
+    "margin": 2,
+    "searching_variable": null,
+    "searching_range": null,
+    "searching_step_size": null
+  },
+  "compiler": {
+    "input_shape": "(1,3,16,112,112)",
+    "devices": ["R38M20BDTME"]
+  }
+}
