@@ -136,7 +136,7 @@ if args.no_tricks:
     args.smooth_eps = 0.0
 
 ''' working directories '''
-dir_profile = 'profile'
+dir_profile = 'user_profile'
 
 ROOT = '../../ms/dataset/'
 args.datadir = os.path.join(ROOT, args.dataset + '_frame')

@@ -15,6 +15,7 @@ import torchvision
 from torchvision import datasets, transforms
 
 from network import c3d, s3d
+from network.scaling_s21d import r2plus1d_scaling
 
 from video_utils.utils import build_dataflow, get_augmentor, my_collate
 from video_utils.video_dataset import VideoDataSet, VideoDataSetLMDB
@@ -64,6 +65,9 @@ parser.add_argument('--transfer',
 parser.add_argument('--smooth-eps',
                     help='label smoothing, default=0.0 for none',
                     type=float, default=0.0)
+parser.add_argument('--multiplier',
+                    help='scaling multiplier',
+                    type=float, default=8)
 parser.add_argument('--pretrained',
                     help='load torchvision pretrained model',
                     action='store_true', default=False)
@@ -75,7 +79,7 @@ parser.add_argument('--test',
                     action='store_true', default=False)
 parser.add_argument('--test-path',
                     help='path of test model')
-parser.add_argument('--gpu', default='1,2,3')
+parser.add_argument('--gpu', default='1,2,3,4,5,6,7')
 args = parser.parse_args()
 
 if args.gpu:
@@ -183,8 +187,7 @@ def training_main(args_ai):
         model = c3d.C3D(num_classes=num_classes)
 
     elif args.arch == 'r2+1d-pretrained' or 'r2+1d':
-        model = torchvision.models.video.r2plus1d_18(pretrained=False)
-        model.fc = nn.Linear(512, num_classes)
+        model = r2plus1d_scaling(num_classes,args.multiplier)
     elif args.arch == 's3d':
         model = s3d.S3D(num_classes=num_classes, without_t_stride=True)
 
@@ -227,8 +230,8 @@ def training_main(args_ai):
     best_epoch = 0
 
     xgen_load(model.module,args_ai)
-    epoch_top1 = test(model, val_loader, val_size, criterion)
-    print(epoch_top1)
+    # epoch_top1 = test(model, val_loader, val_size, criterion)
+    # print(epoch_top1)
     # if not args.resume:
     #     if not args.transfer:
     #         print('Training {} model from scratch on {} dataset'.format(args.arch, args.dataset))
@@ -270,6 +273,7 @@ def training_main(args_ai):
                 scheduler.step()
 
     CL.init(args=args_ai, model=model, optimizer=optimizer, data_loader=train_loader)
+
 
     for epoch in range(start_epoch, args.epochs + 1):
         torch.cuda.empty_cache()
@@ -337,6 +341,9 @@ def training_main(args_ai):
 
         '''save model'''
         is_best = epoch_top1 > best_top1
+
+        with open(os.path.join(args_ai['general']['work_place'],'tmp_result.txt'),'a+') as f:
+            f.write(f"accuracy:{epoch_top1}|epoch:{epoch} \n")
         if is_best:
             best_top1 = epoch_top1
             best_epoch = epoch
@@ -391,7 +398,13 @@ def test(model, val_loader, val_size, criterion):
 
 
 if __name__ == '__main__':
-    json_path = 'args_ai_template.json'
+    json_path = 'tmp_args_ai.json'
     args_ai = json.load(open(json_path, 'r'))
     args_ai['origin'][ "pretrain_model_weights_path"] = args_ai['task']['pretrained_model_path']
-    training_main(args_ai)
+    work_place = args_ai['general']['work_place']
+    for i in [1]:
+        _work_place = os.path.join(work_place,str(i))
+        args_ai['general']['work_place']=_work_place
+        os.makedirs(_work_place, exist_ok=True)
+        args_ai['origin']['multiplier'] = i
+        training_main(args_ai)
