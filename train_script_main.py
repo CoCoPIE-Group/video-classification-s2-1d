@@ -82,8 +82,8 @@ parser.add_argument('--test-path',
 parser.add_argument('--gpu', default='1,2,3,4,5,6,7')
 args = parser.parse_args()
 
-if args.gpu:
-    os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
+# if args.gpu:
+#     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
 
 
 
@@ -402,7 +402,7 @@ if __name__ == '__main__':
     args_ai = json.load(open(json_path, 'r'))
     args_ai['origin'][ "pretrain_model_weights_path"] = args_ai['task']['pretrained_model_path']
     work_place = args_ai['general']['work_place']
-    for i in [1]:
+    for i in [2,4,6,12,16,24,32]:
         _work_place = os.path.join(work_place,str(i))
         args_ai['general']['work_place']=_work_place
         os.makedirs(_work_place, exist_ok=True)
