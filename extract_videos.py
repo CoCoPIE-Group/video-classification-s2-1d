@@ -7,28 +7,26 @@ import subprocess
 import argparse
 
 parser = argparse.ArgumentParser(description='Extract frames from videos.')
-parser.add_argument('-d', '--data_path', help='location of input video folder.', type=str, 
-                    choices=['ucf101', 'hmdb51'])
-parser.add_argument('--split', help='split of dataset', type=int,
-					choices=[1, 2, 3], default=1)
+parser.add_argument('-d', '--data_path', help='location of input video folder.', type=str, choices=['ucf101', 'hmdb51'])
+parser.add_argument('--split', help='split of dataset', type=int, choices=[1, 2, 3], default=1)
 args = parser.parse_args()
 
-ROOT = './'
+ROOT = '/data/video-classification-s2-1d'
 video_path = os.path.join(ROOT, args.data_path)
-frame_path = os.path.join(ROOT, args.data_path +'_frame')
+frame_path = os.path.join(ROOT, args.data_path + '_frame')
 os.makedirs(frame_path, exist_ok=True)
 
 # input
 if args.data_path == 'ucf101':
-	label_file_path = os.path.join(ROOT, 'ucfTrainTestlist')
-	class_file = os.path.join(label_file_path, 'classInd.txt')
-	train_file = os.path.join(label_file_path, 'trainlist{:02d}.txt'.format(args.split))
-	val_file = os.path.join(label_file_path, 'testlist{:02d}.txt'.format(args.split))
+    label_file_path = os.path.join(ROOT, 'ucfTrainTestlist')
+    class_file = os.path.join(label_file_path, 'classInd.txt')
+    train_file = os.path.join(label_file_path, 'trainlist{:02d}.txt'.format(args.split))
+    val_file = os.path.join(label_file_path, 'testlist{:02d}.txt'.format(args.split))
 elif args.data_path == 'hmdb51':
-	label_file_path = os.path.join(ROOT, 'hmdb51_labels')
-	class_file = os.path.join(label_file_path, 'hmdb_labels.txt')
-	train_file = os.path.join(label_file_path, 'hmdb51_split{:1d}_train.txt'.format(args.split))
-	val_file = os.path.join(label_file_path, 'hmdb51_split{:1d}_test.txt'.format(args.split))
+    label_file_path = os.path.join(ROOT, 'hmdb51_labels')
+    class_file = os.path.join(label_file_path, 'hmdb_labels.txt')
+    train_file = os.path.join(label_file_path, 'hmdb51_split{:1d}_train.txt'.format(args.split))
+    val_file = os.path.join(label_file_path, 'hmdb51_split{:1d}_test.txt'.format(args.split))
 
 # output
 train_img_folder = frame_path
@@ -51,6 +49,7 @@ def load_categories(file_path):
             label_to_id[label] = cls_id
             cls_id += 1
     return id_to_label, label_to_id
+
 
 _, label_to_id = load_categories(class_file)
 
@@ -111,13 +110,7 @@ def video_to_images(video, basedir, targetdir, short_side=256):
         if not os.path.exists(output_foldername):
             os.makedirs(output_foldername)
 
-        command = ['ffmpeg',
-                   '-i', '"%s"' % filename,
-                   '-vf', scale,
-                   '-threads', '1',
-                   '-loglevel', 'panic',
-                   '-q:v', '0',
-                   '{}/'.format(output_foldername) + '"%05d.jpg"']
+        command = ['ffmpeg', '-i', '"%s"' % filename, '-vf', scale, '-threads', '1', '-loglevel', 'panic', '-q:v', '0', '{}/'.format(output_foldername) + '"%05d.jpg"']
         command = ' '.join(command)
         try:
             subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
@@ -141,8 +134,7 @@ def video_to_images(video, basedir, targetdir, short_side=256):
 
 def create_train_video(short_side):
     with open(train_list, 'w') as f, concurrent.futures.ProcessPoolExecutor(max_workers=36) as executor:
-        futures = [executor.submit(video_to_images, video, video_path, train_img_folder, int(short_side))
-                   for video in train_videos]
+        futures = [executor.submit(video_to_images, video, video_path, train_img_folder, int(short_side)) for video in train_videos]
         total_videos = len(futures)
         curr_idx = 0
         for future in concurrent.futures.as_completed(futures):
@@ -158,8 +150,7 @@ def create_train_video(short_side):
 
 def create_val_video(short_side):
     with open(val_list, 'w') as f, concurrent.futures.ProcessPoolExecutor(max_workers=36) as executor:
-        futures = [executor.submit(video_to_images, video, video_path, val_img_folder, int(short_side))
-                   for video in val_videos]
+        futures = [executor.submit(video_to_images, video, video_path, val_img_folder, int(short_side)) for video in val_videos]
         total_videos = len(futures)
         curr_idx = 0
         for future in concurrent.futures.as_completed(futures):
