@@ -84,7 +84,8 @@ args = parser.parse_args()
 
 # if args.gpu:
 #     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
-
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 
 if args.transfer:

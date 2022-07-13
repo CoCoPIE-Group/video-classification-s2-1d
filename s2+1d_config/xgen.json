@@ -24,15 +24,15 @@
     "test_path": null,
     "gpu": "0",
     "logdir": "./checkpoint/",
-    "datadir": "/home/tmp00047/test/video-classification-s2-1d/dataset/ucf101_frame",
+    "datadir": "/data/video-classification-s2-1d/dataset/ucf101_frame",
     "multiplier": 8
   },
   "general": {
     "work_place": null
   },
   "task": {
-    "pretrained_model_path": "/home/tmp00047/test/video-classification-s2-1d/pre_trained_model/r2+1d_ucf101_dense_top1-94.0_unpruned.pt",
-    "max_searching": 3
+    "pretrained_model_path": "/root/Projects/video-classification-s2-1d/pre_trained_model/r2+1d_ucf101_dense_top1-94.0_unpruned.pt",
+    "max_searching": 10
   },
   "prune": {
     "sp_retrain": false,
