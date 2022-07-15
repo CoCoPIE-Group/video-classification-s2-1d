@@ -11,10 +11,7 @@
     "lr": 0.005,
     "optim": "sgd",
     "lr_scheduler": null,
-    "lr_milestones": [
-      20,
-      30
-    ],
+    "lr_milestones": [20, 30],
     "resume": false,
     "transfer": false,
     "smooth_eps": 0.0,
@@ -24,7 +21,7 @@
     "test_path": null,
     "gpu": "0",
     "logdir": "./checkpoint/",
-    "datadir": "/data/video-classification-s2-1d/dataset/ucf101_frame",
+    "datadir": "/data/video-classification-s2-1d/ucf101_frame",
     "multiplier": 8
   },
   "general": {
@@ -68,7 +65,7 @@
     "latency": null,
     "margin": 0.1,
     "searching_variable": "multiplier",
-    "searching_range": [1,20],
+    "searching_range": [1, 20],
     "searching_step_size": 1
   },
   "compiler": {
