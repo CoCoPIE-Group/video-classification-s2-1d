@@ -124,8 +124,8 @@ torch.backends.cudnn.benchmark = True  # will result in non-determinism
 # reproduce results https://github.com/pytorch/pytorch/issues/7068
 kwargs = {'num_workers': 0, 'worker_init_fn': np.random.seed(seed), 'pin_memory': True} if use_cuda else {}
 
-ROOT = '../dataset/'
-args.datadir = os.path.join(ROOT, args.dataset.replace('mini-', '') + '_frame')
+# ROOT = '../dataset/'
+# args.datadir = os.path.join(ROOT, args.dataset.replace('mini-', '') + '_frame')
 
 print(' '.join(sys.argv))
 
@@ -140,20 +140,21 @@ for k, v in sorted(vars(args).items()):
 
 COCOPIE_MAP={
     'epochs': XgenArgs.cocopie_train_epochs,
+    'datadir': XgenArgs.cocopie_train_data_path
 }
 
 def training_main(args_ai):
     global args
     args = xgen_init(args,args_ai,COCOPIE_MAP)
 
-    if args.dataset == 'hmdb51':
-        num_classes = 51
-    elif args.dataset == 'ucf101':
-        num_classes = 101
-    elif args.dataset == 'kinetics':
-        num_classes = 400
-    elif args.dataset == 'mini-kinetics':
-        num_classes = 200
+    # if args.dataset == 'hmdb51':
+    #     num_classes = 51
+    # elif args.dataset == 'ucf101':
+    #     num_classes = 101
+    # elif args.dataset == 'kinetics':
+    #     num_classes = 400
+    # elif args.dataset == 'mini-kinetics':
+    #     num_classes = 200
 
     if 'c3d' in args.arch or 'r2+1d' in args.arch:
         scale_range = [128, 128]
@@ -185,12 +186,12 @@ def training_main(args_ai):
     print('')
 
     if args.arch == 'c3d':
-        model = c3d.C3D(num_classes=num_classes)
+        model = c3d.C3D(num_classes=args.num_classes)
 
     elif args.arch == 'r2+1d-pretrained' or 'r2+1d':
-        model = r2plus1d_scaling(num_classes,args.multiplier)
+        model = r2plus1d_scaling(args.num_classes,args.multiplier)
     elif args.arch == 's3d':
-        model = s3d.S3D(num_classes=num_classes, without_t_stride=True)
+        model = s3d.S3D(num_classes=args.num_classes, without_t_stride=True)
 
     if not args.resume:
         print(model)
@@ -399,7 +400,7 @@ def test(model, val_loader, val_size, criterion):
 
 
 if __name__ == '__main__':
-    json_path = 'tmp_args_ai.json'
+    json_path = './s2+1d_config/xgen.json'
     args_ai = json.load(open(json_path, 'r'))
     args_ai['origin'][ "pretrain_model_weights_path"] = args_ai['task']['pretrained_model_path']
     work_place = args_ai['general']['work_place']

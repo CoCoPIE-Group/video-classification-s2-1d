@@ -11,7 +11,7 @@ parser.add_argument('-d', '--data_path', help='location of input video folder.',
 parser.add_argument('--split', help='split of dataset', type=int, choices=[1, 2, 3], default=1)
 args = parser.parse_args()
 
-ROOT = '/data/video-classification-s2-1d'
+ROOT = os.getcwd()
 video_path = os.path.join(ROOT, args.data_path)
 frame_path = os.path.join(ROOT, args.data_path + '_frame')
 os.makedirs(frame_path, exist_ok=True)
