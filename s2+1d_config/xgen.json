@@ -44,22 +44,6 @@
     "sp_prune_ratios": 0,
     "sp_prune_threshold": -1.0
   },
-  "quantization": {
-    "qt_aimet": false,
-    "qat": true,
-    "fold_layers": true,
-    "cross_layer_equalization": false,
-    "bias_correction": true,
-    "rounding_mode": "nearest",
-    "num_quant_samples": 1000,
-    "num_bias_correct_samples": 1000,
-    "weight_bw": 8,
-    "act_bw": 8,
-    "quant_scheme": "tf_enhanced",
-    "layers_to_ignore": [],
-    "auto_add_bias": true,
-    "perform_only_empirical_bias_corr": true
-  },
   "user_requirements": {
     "accuracy": 80,
     "latency": null,
