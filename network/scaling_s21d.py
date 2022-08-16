@@ -31,7 +31,7 @@ class VideoResNetPlus(VideoResNet):
         self.fc = nn.Linear(int(width*8), num_classes)
 
         # init weights
-        self._initialize_weights()
+        # self._initialize_weights()
 
         if zero_init_residual:
             for m in self.modules():

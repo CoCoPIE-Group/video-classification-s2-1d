@@ -26,7 +26,7 @@ from utils import *
 import argparse
 
 from xgen_tools import *
-from xgen_tools import xgen_record, xgen_init, xgen_load, XgenArgs,xgen
+from xgen_tools import xgen_record, xgen_init, xgen_load, XgenArgs
 from co_lib import Co_Lib as CL
 
 
@@ -84,8 +84,8 @@ args = parser.parse_args()
 
 # if args.gpu:
 #     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+# os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 
 if args.transfer:
@@ -114,15 +114,16 @@ global print
 print = logger.info
 
 use_cuda = torch.cuda.is_available()
-seed = 2019
-np.random.seed(seed)
-torch.manual_seed(seed)
-if use_cuda: torch.cuda.manual_seed_all(seed)
+# seed = 2019
+# np.random.seed(seed)
+# torch.manual_seed(seed)
+# if use_cuda: torch.cuda.manual_seed_all(seed)
 torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = True  # will result in non-determinism
 
 # reproduce results https://github.com/pytorch/pytorch/issues/7068
-kwargs = {'num_workers': 0, 'worker_init_fn': np.random.seed(seed), 'pin_memory': True} if use_cuda else {}
+# kwargs = {'num_workers': 0, 'worker_init_fn': np.random.seed(seed), 'pin_memory': True} if use_cuda else {}
+kwargs = {'num_workers': 0, 'pin_memory': True} if use_cuda else {}
 
 # ROOT = '../dataset/'
 # args.datadir = os.path.join(ROOT, args.dataset.replace('mini-', '') + '_frame')
@@ -143,9 +144,9 @@ COCOPIE_MAP={
     'datadir': XgenArgs.cocopie_train_data_path
 }
 
-def training_main(args_ai):
+def training_main(args_ai=None):
     global args
-    args = xgen_init(args,args_ai,COCOPIE_MAP)
+    args, args_ai = xgen_init(args, args_ai, COCOPIE_MAP)
 
     # if args.dataset == 'hmdb51':
     #     num_classes = 51
@@ -276,7 +277,6 @@ def training_main(args_ai):
 
     CL.init(args=args_ai, model=model, optimizer=optimizer, data_loader=train_loader)
 
-
     for epoch in range(start_epoch, args.epochs + 1):
         torch.cuda.empty_cache()
 
@@ -364,7 +364,8 @@ def training_main(args_ai):
         print('')
     epoch_top1 = test(model, val_loader, val_size, criterion)
     xgen_record(args_ai, model.module, epoch_top1, -1)
-    return args_ai
+    # return args_ai
+
     # os.rename(os.path.join(args.logdir, '{}_best.pt'.format(ckpt_name)), \
     #           os.path.join(args.logdir, '{}_epoch-{}_top1-{:.3f}.pt'.format(ckpt_name, best_epoch, best_top1)))
 
@@ -400,13 +401,4 @@ def test(model, val_loader, val_size, criterion):
 
 
 if __name__ == '__main__':
-    json_path = './s2+1d_config/xgen.json'
-    args_ai = json.load(open(json_path, 'r'))
-    args_ai['origin'][ "pretrain_model_weights_path"] = args_ai['task']['pretrained_model_path']
-    work_place = args_ai['general']['work_place']
-    for i in [2,4,6,12,16,24,32]:
-        _work_place = os.path.join(work_place,str(i))
-        args_ai['general']['work_place']=_work_place
-        os.makedirs(_work_place, exist_ok=True)
-        args_ai['origin']['multiplier'] = i
-        training_main(args_ai)
+    training_main(args_ai=None)
