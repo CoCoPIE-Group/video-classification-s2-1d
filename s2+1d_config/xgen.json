@@ -19,7 +19,7 @@
     ]
   },
   "training_script_args": {
-    "train_data_path": "./ucf101_frame",
+    "train_data_path": "/data/video-classification-s2-1d/ucf101_frame",
     "train_label_path": null,
     "eval_data_path": null,
     "eval_label_path": null,
