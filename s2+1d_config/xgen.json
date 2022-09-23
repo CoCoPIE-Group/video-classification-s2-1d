@@ -28,7 +28,7 @@
     "num_classes": 101,
     "dataset": "ucf101",
     "batch_size": 16,
-    "lr": 0.005,
+    "learning_rate": 0.005,
     "optim": "sgd",
     "lr_scheduler": null,
     "lr_milestones": [
