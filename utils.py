@@ -54,13 +54,13 @@ def adjust_learning_rate(optimizer, epoch, args):
 
     # adjust learning rate
     if args.warmup and epoch - 1 <= args.warmup_epochs:
-        lr = args.warmup_lr + (args.lr - args.warmup_lr) / args.warmup_epochs * (epoch - 1)
+        lr = args.warmup_lr + (args.learning_rate - args.warmup_lr) / args.warmup_epochs * (epoch - 1)
         for param_group in optimizer.param_groups:
             param_group['lr'] = lr
 
     args.lr_decay = max(1, int(args.epochs * 0.2))
-    #lr = args.lr * (0.3 ** (epoch // args.lr_decay))
-    lr = args.lr * (0.5 ** ((epoch - 1) // args.lr_decay))
+    #lr = args.learning_rate * (0.3 ** (epoch // args.lr_decay))
+    lr = args.learning_rate * (0.5 ** ((epoch - 1) // args.lr_decay))
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
 
