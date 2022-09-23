@@ -39,9 +39,9 @@ parser.add_argument('--dataset', '-d',
                     default='ucf101')
 parser.add_argument('--batch-size', '-b',
                     type=int, default=32)
-parser.add_argument('--lr',
-                    help='learning rate: default 5e-3 for sgd optimizer, 1e-4 for adam',
-                    type=float, default=5e-3)
+# parser.add_argument('--lr',
+#                     help='learning rate: default 5e-3 for sgd optimizer, 1e-4 for adam',
+#                     type=float, default=5e-3)
 parser.add_argument('--optim',
                     help='optimizer',
                     choices=['sgd', 'adam'],
@@ -219,9 +219,9 @@ def training_main(args_ai=None):
         return
 
     if args.optim == 'sgd':
-        optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=0.9, weight_decay=5e-4)
+        optimizer = optim.SGD(model.parameters(), lr=args.learning_rate, momentum=0.9, weight_decay=5e-4)
     elif args.optim == 'adam':
-        optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=5e-4)
+        optimizer = optim.Adam(model.parameters(), lr=args.learning_rate, weight_decay=5e-4)
 
     # scheduler = optim.lr_scheduler.MultiSteplr(optimizer, milestones=args.milestones, gamma=0.1)
     if args.lr_scheduler == 'cosine':
