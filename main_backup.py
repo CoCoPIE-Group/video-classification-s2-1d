@@ -187,7 +187,7 @@ def main():
     args.smooth = args.smooth_eps > 0.0
     args.mixup = args.alpha > 0.0
 
-    optimizer_init_lr = args.warmup_lr if args.warmup else args.lr
+    optimizer_init_lr = args.warmup_lr if args.warmup else args.learning_rate
 
     optimizer = None
     if args.optmzr == 'sgd':
@@ -207,7 +207,7 @@ def main():
         raise Exception('unknown lr scheduler')
 
     if args.warmup:
-        scheduler = GradualWarmupScheduler(optimizer, multiplier=args.lr / args.warmup_lr, 
+        scheduler = GradualWarmupScheduler(optimizer, multiplier=args.learning_rate / args.warmup_lr, 
                                            total_iter=args.warmup_epochs * len(train_loader), after_scheduler=scheduler)
 
     '''====================='''
