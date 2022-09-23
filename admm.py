@@ -215,10 +215,10 @@ Sets the learning rate to the initial LR decayed by 10 every 30 epochs'''
     admm_epoch = args.admm_epochs
     lr = None
     if (epoch - 1) % admm_epoch == 0:
-        lr = args.lr
+        lr = args.learning_rate
     else:
         admm_epoch_offset = (epoch - 1) % admm_epoch
         admm_step = admm_epoch / 3  # roughly every 1/3 admm_epoch.
-        lr = args.lr * (0.5 ** (admm_epoch_offset // admm_step))
+        lr = args.learning_rate * (0.5 ** (admm_epoch_offset // admm_step))
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
