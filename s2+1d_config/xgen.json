@@ -1,7 +1,7 @@
 {
   "general": {
     "work_place": null,
-    "pretrained_model_path": "/root/Projects/video-classification-s2-1d/pre_trained_model/r2+1d_ucf101_dense_top1-94.0_unpruned.pt",
+    "pretrained_model_path": "/xgen/Projects/video-classification-s2-1d/pre_trained_model/r2+1d_ucf101_dense_top1-94.0_unpruned.pt",
     "enable_ddp": false,
     "CUDA_VISIBLE_DEVICES":  "0,1",
     "random_seed": 3407
@@ -19,7 +19,7 @@
     ]
   },
   "training_script_args": {
-    "train_data_path": "/data/video-classification-s2-1d/ucf101_frame",
+    "train_data_path": "/xgen/data/video-classification-s2-1d/ucf101_frame",
     "train_label_path": null,
     "eval_data_path": null,
     "eval_label_path": null,
