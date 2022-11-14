@@ -157,3 +157,5 @@ venv.bak/
 
 /dataset/ucf101/
 /dataset/ucfTrainTestlist/
+
+xgen_scripts.py
